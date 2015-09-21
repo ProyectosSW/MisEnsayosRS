@@ -24,7 +24,10 @@ import org.hibernate.annotations.NamedQuery;
     @javax.persistence.NamedQuery(name = "establecimientoporcalificacion",                
                 query = "select i.establecimiento, avg(c.calificacionEstablecimiento) as p from Instrumento i join i.ensayo e join e.calificacions c where i.establecimiento.idEstablecimiento in"
                         +"("+"select i.establecimiento.idEstablecimiento from Instrumento i join i.detalleInstrumento di where di.nombre in :nombrex and i.establecimiento.idEstablecimiento in "
-                        +"("+"select e.idEstablecimiento from Establecimiento e where e.localidad = :localidadx"+")"+")"+"order by p DESC")        
+                        +"("+"select e.idEstablecimiento from Establecimiento e where e.localidad = :localidadx"+")"+")"+"order by p DESC"),  
+        
+    @javax.persistence.NamedQuery(name = "horarioN",
+                query = "select s.nombre, r.fecha , r.tiempo from Sala s join s.reservacions r where s.establecimiento.idEstablecimiento=0 and r.fecha<'Fecha'")
 })
 
 @Entity

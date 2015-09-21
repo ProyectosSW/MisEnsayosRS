@@ -6,6 +6,7 @@
 package com.misensayosrs;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -74,9 +75,31 @@ public class TestMain {
             System.out.println("Establecimiento "+establecimiento[0]+" : "+establecimiento[1]);
         }
         
+        
+        Query horarioN = session.getNamedQuery("horarioN");
+        List<Object[]> listaHor= horarioN.list();
+        for(Object[] i:listaHor){
+            System.out.println((String)i[0]+" "+(Date)i[1]+" "+(Integer)i[2]);
+        }
+        
+        
         tx.commit();
         session.close();
     
     }
     
+    
+    public static void insercion(Session s, Cliente clien, List<Integer> codIns, Date fecha, int tiempoEnsayo, Integer abrilRecords, Sala salaA){
+        Reservacion reser= new Reservacion(555, salaA, fecha,tiempoEnsayo);
+        s.save(reser);
+        Ensayo ensay=new Ensayo(124, clien, "Ensayo de la banda the strokes");
+        s.save(ensay);
+        Alquiler alqui=new Alquiler(123, ensay, reser, "debito", 0, "15%");
+        s.save(alqui);
+        for(int i=0;i<=codIns.size();i++){
+            ((Instrumento)s.load(Instrumento.class,codIns.get(i))).setEnsayo(ensay);
+            s.update(codIns.get(i));
+            
+        } 
+    }
 }
