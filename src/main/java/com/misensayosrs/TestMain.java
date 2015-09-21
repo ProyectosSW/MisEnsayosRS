@@ -6,8 +6,9 @@
 package com.misensayosrs;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -37,7 +38,41 @@ public class TestMain {
         
         Session session=sessionFactory.openSession();        
         Transaction tx=session.beginTransaction();
+                
+        List<String> listaNombreDetalleInstrumentos = new ArrayList<>();
+        listaNombreDetalleInstrumentos.add("Acordeon");
+        listaNombreDetalleInstrumentos.add("Arpa");
+        listaNombreDetalleInstrumentos.add("Bajo");
+        listaNombreDetalleInstrumentos.add("Bateria");
+        listaNombreDetalleInstrumentos.add("Clarinete");
+        listaNombreDetalleInstrumentos.add("Flauta");
+        listaNombreDetalleInstrumentos.add("Guitarra");
+        listaNombreDetalleInstrumentos.add("Piano");
+        listaNombreDetalleInstrumentos.add("Saxofon");
+        listaNombreDetalleInstrumentos.add("Trompeta");
+        listaNombreDetalleInstrumentos.add("Violin");
+        String listaIns="(";
+        for(String s : listaNombreDetalleInstrumentos){
+            listaIns = listaIns+"'"+s+"',";
+        }
+        listaIns=listaIns.substring(0, listaIns.length()-1);
+        listaIns = listaIns+")";
+
+        Query establecimientosPrecio = session.getNamedQuery("establecimientoporprecio");
+        establecimientosPrecio.setString("nombrex", listaIns);
+        establecimientosPrecio.setString("localidadx", "Usaquen");
+        List<Object> listaEstablecimientosPrecio = establecimientosPrecio.list();
+        for(Object establecimiento: listaEstablecimientosPrecio){
+            System.out.println("Establecimiento "+(Establecimiento)establecimiento);
+        }
         
+        Query establecimientosEvaluacion = session.getNamedQuery("establecimientoporcalificacion");
+        establecimientosEvaluacion.setString("nombrex", listaIns);
+        establecimientosEvaluacion.setString("localidadx", "Usaquen");
+        List<Object[]> listaEstablecimientosEvaluacion = establecimientosEvaluacion.list();
+        for(Object[] establecimiento: listaEstablecimientosEvaluacion){
+            System.out.println("Establecimiento "+establecimiento[0]+" : "+establecimiento[1]);
+        }
         
         tx.commit();
         session.close();
