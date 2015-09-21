@@ -5,8 +5,10 @@
  */
 package com.misensayosrs;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.Date; 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -82,6 +84,20 @@ public class TestMain {
             System.out.println((String)i[0]+" "+(Date)i[1]+" "+(Integer)i[2]);
         }
         
+        
+        Query q = session.getNamedQuery("EstablecimientoInstru");
+        Date d = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(d);
+        c.add(Calendar.DAY_OF_YEAR, 10);
+        q.setDate("n", c.getTime());
+        q.setInteger("idInst", 0);
+        q.setInteger("idEst", 0);
+        List<Object[]> l = q.list();
+        
+        for(Object[] i:l){
+            System.out.println((String)i[0]+" "+(java.sql.Date)i[1]+" "+(Integer)i[2]);
+        }
         
         tx.commit();
         session.close();

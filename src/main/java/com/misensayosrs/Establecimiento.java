@@ -27,7 +27,11 @@ import org.hibernate.annotations.NamedQuery;
                         +"("+"select e.idEstablecimiento from Establecimiento e where e.localidad = :localidadx"+")"+")"+"order by p DESC"),  
         
     @javax.persistence.NamedQuery(name = "horarioN",
-                query = "select s.nombre, r.fecha , r.tiempo from Sala s join s.reservacions r where s.establecimiento.idEstablecimiento=0 and r.fecha<'Fecha'")
+                query = "select s.nombre, r.fecha , r.tiempo from Sala s join s.reservacions r where s.establecimiento.idEstablecimiento=0 and r.fecha<'Fecha'"),
+    @javax.persistence.NamedQuery(name = "EstablecimientoInstru",
+                query = "SELECT e.nombre, r.fecha, r.tiempo FROM Instrumento i JOIN i.establecimiento e JOIN e.salas s JOIN s.reservacions r JOIN i.detalleInstrumento di "
+                        + "WHERE s.establecimiento.idEstablecimiento=:idEst AND r.fecha<:n AND i.idInstrumento=:idInst AND di.idDetalleInstrumento=0 "
+                        + "AND 0=(SELECT COUNT(i.idInstrumento) FROM Instrumento i WHERE i.establecimiento=0 AND i.ensayo=null)")
 })
 
 @Entity
