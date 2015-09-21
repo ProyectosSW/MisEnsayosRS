@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://desarrollo.is.escuelaing.edu.co:3306/cosw3?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">cosw3</property>
+    <property name="hibernate.connection.password">cosw3gr33</property>
+    <mapping class="com.misensayosrs.DetalleInstrumento"/>
+    <mapping class="com.misensayosrs.Ensayo"/>
+    <mapping class="com.misensayosrs.Sala"/>
+    <mapping class="com.misensayosrs.Instrumento"/>
+    <mapping class="com.misensayosrs.Establecimiento"/>
+    <mapping class="com.misensayosrs.Calificacion"/>
+    <mapping class="com.misensayosrs.Cliente"/>
+    <mapping class="com.misensayosrs.Alquiler"/>
+    <mapping class="com.misensayosrs.Reservacion"/>
+    <mapping class="com.misensayosrs.TestMain"/>
+  </session-factory>
+</hibernate-configuration>
